@@ -1,1 +1,36 @@
+name: automate_script_renv
 
+# Controls when the action will run.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 12 * * *'
+
+
+jobs: 
+  import-data:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Load repo and install R
+    steps:
+    - uses: actions/checkout@v2
+    - uses: r-lib/actions/setup-r@v2
+    - uses: r-lib/actions/setup-renv@v2
+           
+    # Run R script
+    - name: Run Script
+      run: Rscript -e 'source("R/DEP_HAB_script_git.R")'
+      
+ # Add new files in data folder, commit along with other modified files, push
+    - name: Commit files
+      run: |
+        git config --local user.name actions-user
+        git config --local user.email "actions@github.com"
+        git add data/*
+        git commit -am "GH ACTION Headlines $(date)"
+        git push origin main
+      env:
+        REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+        username: github-actions
+        
