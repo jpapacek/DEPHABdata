@@ -1,5 +1,5 @@
 # DEP HAB data READ ME
-This repository automatically imports Harmful Algal Bloom sample results from the Florida Department of Environmental Protection [Algal Bloom Site Visits](https://geodata.dep.state.fl.us/datasets/FDEP::florida-algal-bloom-site-visits-1/about) data table into csv file on a daily basis.
+This repository automatically imports Harmful Algal Bloom sample results from the Florida Department of Environmental Protection [Algal Bloom Site Visits](https://geodata.dep.state.fl.us/datasets/FDEP::florida-algal-bloom-site-visits-1/about) data table into csv file on a daily basis. Note that the query is only for samples from certain Florida counties (Alachua, Baker, Brevard, Clay, Duval, Flager, Indian River, Lake, Marion, Nassau, Orange, Osceola, Putnam, Seminole, St. Johns, Volusia).
 
 Main components:
 - R script to import, organize, and export data [link](/R/DEP_HAB_script_git.R)
