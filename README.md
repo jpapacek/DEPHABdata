@@ -3,7 +3,7 @@ This repository automatically imports Harmful Algal Bloom sample results from th
 
 Main components:
 - R script to import, organize, and export data [link](/R/DEP_HAB_script_git.R)
-- workflow to automate R script [link](.github/workflows/automate_cript_using_renv.yml)
+- workflow to automate R script [link](.github/workflows/automate_script_using_renv.yml)
 - output csv files [link](/data/)
 
 Thanks to Paul Julian [@SwampThingPaul](https://github.com/SwampThingPaul) for assistance with writing the geojson query.
