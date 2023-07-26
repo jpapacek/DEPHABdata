@@ -337,5 +337,5 @@ DEP_bgdat_unique=DEP_bgdat_clean%>%
   distinct(location,visitor,datetime,.keep_all = TRUE)
 
 
-write.csv(DEP_bgdat_unique,file = paste0("data/DEP_HAB_data_", make.names(Sys.time()), ".Rda"),na="",row.names = FALSE)
+write.csv(DEP_bgdat_unique,file = paste0("data/DEP_HAB_data_", make.names(Sys.time()), ".csv"),na="",row.names = FALSE)
 
