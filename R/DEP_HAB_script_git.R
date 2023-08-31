@@ -78,6 +78,7 @@ vars=c("attributes.objectid", "attributes.globalid", "attributes.SiteVisitDate",
 )
 vars=strsplit(vars,"\\.")
 vars=sapply(vars,"[",2)
+DEP_bgdat=as.data.frame(DEP_bgdat)
 colnames(DEP_bgdat)<-tolower(vars)
 
 ####NEWER DATA####
@@ -143,6 +144,7 @@ vars_new=c("attributes.objectid", "attributes.globalid", "attributes.SampleDateT
 )
 vars_new=strsplit(vars_new,"\\.")
 vars_new=sapply(vars_new,"[",2)
+DEP_bgdat_new=as.data.frame(DEP_bgdat_new)
 colnames(DEP_bgdat_new)<-tolower(vars_new)
 
 #Rename columns to match "older" dataset
