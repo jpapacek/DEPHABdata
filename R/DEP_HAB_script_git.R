@@ -327,8 +327,9 @@ DEP_bgdat_test$othertoxins=DEP_bgdat$othertoxin
 
 #Cleanup data
 DEP_bgdat_clean=DEP_bgdat_test%>%
-  select(location,datetime,date,latitude,longitude,county,visitor,algaeobserved,sampledepth,
-         algalid,cyanobacteriadominant,toxinpresent,mcvalue,mcqualifier,cylvalue,cylqualifier,anavalue,anaqualifier,saxvalue,saxqualifier,nodvalue,nodqualifier,othertoxins,comments,picurl)%>%
+  select(location,county,date,visitor,algaeobserved,algalid,cyanobacteriadominant,toxinpresent,
+         mcvalue,mcqualifier,cylvalue,cylqualifier,anavalue,anaqualifier,saxvalue,saxqualifier,nodvalue,nodqualifier,othertoxins,comments,
+         datetime,latitude,longitude,sampledepth,picurl)%>%
   mutate(mcvalue=as.numeric(mcvalue),
          cylvalue=as.numeric(cylvalue),
          anavalue=as.numeric(anavalue),
