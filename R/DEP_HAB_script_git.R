@@ -195,7 +195,7 @@ DEP_bgdat=DEP_bgdat%>%
 #Routine sites: MP72, DTL, 20030157, CRESLM, LEO, LMAC, OW-CTR, LWC, STKM, BCL
 #OW-2 was routine site on Jesup until sometime in 2021
 DEP_bgdat=DEP_bgdat%>%
-  mutate(visittype=case_when(date>="2020-05-01"&grepl('(MP72)|(DTL)|(20030157)|(CRESLM)|(LEO)|(LMAC)|(OW-CTR)|(OW-2)|(LWC)|(STKM)|(BCL)',location)~"Routine",
+  mutate(visittype=case_when(date>="2020-05-01"&grepl('(MP72)|(DTL)|(20030157)|(CRESLM)|(LEO)|(LMAC)|(OW-CTR)|(OW-2)|(LWC)|(STKM)|(BCL)|(SNKLCA)',location)~"Routine",
                              TRUE~"Response"))
 
 #Filter routine vs. response
