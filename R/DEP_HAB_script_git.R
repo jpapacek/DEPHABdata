@@ -161,12 +161,12 @@ DEP_bgdat_new=DEP_bgdat_new%>%
 
 #Join datasets
 #Need to replace Pending values with NAs to help with merge
-DEP_bgdat=DEP_bgdat[!(DEP_bgdat$algalid=="Pending"),]
+#DEP_bgdat=DEP_bgdat[!(DEP_bgdat$algalid=="Pending"),]
 
-DEP_bgdat=rbind(DEP_bgdat,DEP_bgdat_new)
+#DEP_bgdat=rbind(DEP_bgdat,DEP_bgdat_new)
 
 #For some reason some "Toxin present" columns show pending when they are ND
-DEP_bgdat=DEP_bgdat%>%
+DEP_bgdat=DEP_bgdat_new%>% #THIS IS A WORK AROUND TO ONLY USE 2022-present DATA AS DEP DF FOR 2020-2021 IS INACCESSIBLE
   mutate(toxinpresent=case_when(toxinpresent=="Pending"&microcystin=="not detected"&
                                   othertoxin=="Anatoxin-a: not detected; Cylindrospermopsin: not detected; Nodularin-R: not detected; Saxitoxins: not detected"~"No",
                                 TRUE~toxinpresent))
