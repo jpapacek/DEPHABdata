@@ -14,72 +14,72 @@ library(stringr)
 ### Grab HAB Sampling Results from FDEP Dashboard
 ####OLDER DATA####
 #Set path and request JSON
-DEP_path <- 'https://services1.arcgis.com/nRHtyn3uE1kyzoYc/arcgis/rest/services/VIEW_FL_Algal_Bloom_Site_Visits_1/FeatureServer/0/query?'
-DEP_request <- GET(
-  url = DEP_path,
-  query= list(       
-    where = "County='Brevard' OR County='Clay' OR County='Duval' OR County='Flagler' 
-    OR County='IndianRiver'",
-    outFields = '*',
-    f = 'pjson'
-  )
-)
-
-#Reformat to table
-DEP_response <- content(DEP_request, 
-                        as = "text", 
-                        encoding = "UTF-8")
-DEP_results <- jsonlite::fromJSON(DEP_response,flatten=T)
-# nrow(results$features)
-DEP_bgdat=DEP_results$features
-
-#Second request to get additional counties within District (query is limited to 1000 instances)
-request <- GET(
-  url = DEP_path,
-  query= list(       
-    where = "County='StJohns' OR County='Volusia' OR County='Nassau' OR County='Putnam' OR County='Seminole'",
-    outFields = '*',
-    f = 'pjson'
-  )
-)
-response <- content(request, as = "text", encoding = "UTF-8")
-results <- jsonlite::fromJSON(response,flatten=T)
-# nrow(results$features)
-
-#Bind results together
-DEP_bgdat=rbind(DEP_bgdat, results$features)
-
-
-#Third request to get additional counties within District (query is limited to 1000 instances)
-request <- GET(
-  url = DEP_path,
-  query= list(       
-    where = "County='Lake' OR County='Marion' OR County='Orange' OR County='Osceola' OR County='Alachua'",
-    outFields = '*',
-    f = 'pjson'
-  )
-)
-response <- content(request, as = "text", encoding = "UTF-8")
-results <- jsonlite::fromJSON(response,flatten=T)
-# nrow(results$features)
-
-#Bind results together
-DEP_bgdat=rbind(DEP_bgdat, results$features)
-
-#Rename Columns
-vars=c("attributes.objectid", "attributes.globalid", "attributes.SiteVisitDate", 
-       "attributes.Location", "attributes.County", "attributes.Visitor", 
-       "attributes.AlgaeObserved", "attributes.SampleTaken", "attributes.DepthDesc", 
-       "attributes.SampleDepth", "attributes.AnalyzedBy", "attributes.Otherlab", 
-       "attributes.Comments", "attributes.Latitude", "attributes.Longitude", 
-       "attributes.AlgalID", "attributes.Microcystin", "attributes.OtherToxin", 
-       "attributes.EditDate", "attributes.PicURL", "attributes.ToxinPresent", 
-       "attributes.CyanobacteriaDominant", "geometry.x", "geometry.y"
-)
-vars=strsplit(vars,"\\.")
-vars=sapply(vars,"[",2)
-DEP_bgdat=as.data.frame(DEP_bgdat)
-colnames(DEP_bgdat)<-tolower(vars)
+# DEP_path <- 'https://services1.arcgis.com/nRHtyn3uE1kyzoYc/arcgis/rest/services/VIEW_FL_Algal_Bloom_Site_Visits_1/FeatureServer/0/query?'
+# DEP_request <- GET(
+#   url = DEP_path,
+#   query= list(       
+#     where = "County='Brevard' OR County='Clay' OR County='Duval' OR County='Flagler' 
+#     OR County='IndianRiver'",
+#     outFields = '*',
+#     f = 'pjson'
+#   )
+# )
+# 
+# #Reformat to table
+# DEP_response <- content(DEP_request, 
+#                         as = "text", 
+#                         encoding = "UTF-8")
+# DEP_results <- jsonlite::fromJSON(DEP_response,flatten=T)
+# # nrow(results$features)
+# DEP_bgdat=DEP_results$features
+# 
+# #Second request to get additional counties within District (query is limited to 1000 instances)
+# request <- GET(
+#   url = DEP_path,
+#   query= list(       
+#     where = "County='StJohns' OR County='Volusia' OR County='Nassau' OR County='Putnam' OR County='Seminole'",
+#     outFields = '*',
+#     f = 'pjson'
+#   )
+# )
+# response <- content(request, as = "text", encoding = "UTF-8")
+# results <- jsonlite::fromJSON(response,flatten=T)
+# # nrow(results$features)
+# 
+# #Bind results together
+# DEP_bgdat=rbind(DEP_bgdat, results$features)
+# 
+# 
+# #Third request to get additional counties within District (query is limited to 1000 instances)
+# request <- GET(
+#   url = DEP_path,
+#   query= list(       
+#     where = "County='Lake' OR County='Marion' OR County='Orange' OR County='Osceola' OR County='Alachua'",
+#     outFields = '*',
+#     f = 'pjson'
+#   )
+# )
+# response <- content(request, as = "text", encoding = "UTF-8")
+# results <- jsonlite::fromJSON(response,flatten=T)
+# # nrow(results$features)
+# 
+# #Bind results together
+# DEP_bgdat=rbind(DEP_bgdat, results$features)
+# 
+# #Rename Columns
+# vars=c("attributes.objectid", "attributes.globalid", "attributes.SiteVisitDate", 
+#        "attributes.Location", "attributes.County", "attributes.Visitor", 
+#        "attributes.AlgaeObserved", "attributes.SampleTaken", "attributes.DepthDesc", 
+#        "attributes.SampleDepth", "attributes.AnalyzedBy", "attributes.Otherlab", 
+#        "attributes.Comments", "attributes.Latitude", "attributes.Longitude", 
+#        "attributes.AlgalID", "attributes.Microcystin", "attributes.OtherToxin", 
+#        "attributes.EditDate", "attributes.PicURL", "attributes.ToxinPresent", 
+#        "attributes.CyanobacteriaDominant", "geometry.x", "geometry.y"
+# )
+# vars=strsplit(vars,"\\.")
+# vars=sapply(vars,"[",2)
+# DEP_bgdat=as.data.frame(DEP_bgdat)
+# colnames(DEP_bgdat)<-tolower(vars)
 
 ####NEWER DATA####
 ###IMPORTANT: The path for 2022 samples changed sometime in June; needs to be called again, bound to previous samples and cleaned up!
