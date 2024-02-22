@@ -223,11 +223,11 @@ DEP_bgdat=DEP_bgdat%>%
 #Need to account for Pending & Nondetects
 #This creates logical column for detected or not
 DEP_bgdat$mcdetect=case_when(DEP_bgdat$microcystin=="not detected"~0,
-                              DEP_bgdat$microcystin=="Pending"|DEP_bgdat$microcystin=="not collected"~NA_real_,
-                              TRUE~1)
+                             DEP_bgdat$microcystin=="Pending"|DEP_bgdat$microcystin=="not collected"~NA_real_,
+                             TRUE~1)
 #A sample from Georges Lake has a comma in the MC column (i.e. '9,000') which is currently a character; need to replace
 DEP_bgdat$microcystin1=gsub(",","",DEP_bgdat$microcystin)
-  
+
 
 #This replaces space with | to ease separation
 DEP_bgdat=DEP_bgdat%>%
@@ -235,9 +235,9 @@ DEP_bgdat=DEP_bgdat%>%
   separate(microcystin1,into = c("mcvalue","mcqualifier"),sep ="\\|")
 #Replace ND/NC strings with NAs
 DEP_bgdat$mcvalue=case_when(DEP_bgdat$mcvalue=="not"|DEP_bgdat$mcvalue=="Pending"~NA_character_,
-                             TRUE~DEP_bgdat$mcvalue)
+                            TRUE~DEP_bgdat$mcvalue)
 DEP_bgdat$mcqualifier=case_when(DEP_bgdat$mcqualifier=="detected"|DEP_bgdat$mcqualifier=="collected"~NA_character_,
-                                 TRUE~DEP_bgdat$mcqualifier)
+                                TRUE~DEP_bgdat$mcqualifier)
 
 #####Attempt with othertoxins column (use test dataframe first)####
 DEP_bgdat_test=DEP_bgdat%>%
