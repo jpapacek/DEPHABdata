@@ -4,6 +4,8 @@ This repository automatically imports Harmful Algal Bloom sample results from th
 Main components:
 - R script to import, organize, and export data [link](/R/DEP_HAB_script_git.R)
 - workflow to automate R script [link](.github/workflows/automate_script_using_renv.yml)
-- output csv files [link](/data/)
+- output csv file(s) [link](/data/) updated daily
+
+A csv file for DEP HAB data for the same counties sampled from 2019-2021 is also available.
 
 Thanks to Paul Julian [@SwampThingPaul](https://github.com/SwampThingPaul) for assistance with writing the geojson query.
