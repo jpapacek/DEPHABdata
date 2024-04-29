@@ -1,3 +1,5 @@
+system("sudo apt-get install libcurl4-openssl-dev")
+
 library(reshape)
 library(plyr)
 library(dplyr)
@@ -9,7 +11,6 @@ library(jsonlite)
 library(httr)
 library(stringr)
 #library(renv)
-system("sudo apt-get install libcurl4-openssl-dev")
 
 ### Grab HAB Sampling Results from FDEP Dashboard
 ####OLDER DATA####
